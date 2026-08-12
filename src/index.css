@@ -1,0 +1,370 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource/archivo";
+@import "@fontsource/ibm-plex-mono";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: var(--font-display);
+  --font-sans: var(--font-display);
+  --font-mono: var(--font-mono);
+  --color-rule: var(--rule);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: #050505;
+  --foreground: #F8FAFC;
+  --card: #111111;
+  --card-foreground: oklch(0.96 0.002 285);
+  --popover: oklch(0.19 0.004 285);
+  --popover-foreground: oklch(0.96 0.002 285);
+  --primary: #3B82F6;
+  --primary-foreground: oklch(0.16 0.004 285);
+  --secondary: oklch(0.24 0.004 285);
+  --secondary-foreground: oklch(0.96 0.002 285);
+  --muted: oklch(0.24 0.004 285);
+  --muted-foreground: #94A3B8;
+  --accent: #FACC15;
+  --accent-foreground: oklch(0.16 0.004 285);
+  --destructive: oklch(0.6 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: #262626;
+  --input: oklch(1 0 0 / 12%);
+  --ring: #3B82F680;
+  --chart-1: #3B82F6;
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.19 0.004 285);
+  --sidebar-foreground: oklch(0.96 0.002 285);
+  --sidebar-primary: #3B82F6;
+  --sidebar-primary-foreground: oklch(0.16 0.004 285);
+  --sidebar-accent: oklch(0.24 0.004 285);
+  --sidebar-accent-foreground: oklch(0.96 0.002 285);
+  --sidebar-border: oklch(1 0 0 / 9%);
+  --sidebar-ring: oklch(0.86 0.24 143 / 45%);
+
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --rule: color-mix(in oklab, var(--foreground) 9%, transparent);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+}
+
+@utility grid-field {
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 0%, transparent 100%);
+  opacity: .5;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+@utility rise {
+  animation: rise .9s cubic-bezier(.2,.7,.2,1) both;
+}
+
+@utility drift {
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+@utility spin-slow {
+  animation: spin-slow 90s linear infinite;
+}
+
+@utility nav-link {
+  position: relative;
+  color: var(--muted-foreground);
+  transition: color .35s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: var(--accent);
+    transition: transform .4s cubic-bezier(.2,.7,.2,1);
+  }
+
+  &:hover {
+    color: var(--foreground);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@utility pulse-dot{
+  animation:pulse-dot 2.6s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity:0;
+    transform:translateY(14px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+@keyframes drift {
+  from{
+    transform:translate3d(0,-10px,0) scale(1);
+  }
+  to{
+    transform:translate3d(0,10px,0) scale(1.015);
+  }
+}
+
+@keyframes spin-slow{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes pulse-dot{
+  0%,100%{
+    opacity:1;
+  }
+  50%{
+    opacity:.25;
+  }
+}
+
+/* =========================================================
+   HPC VISUAL POLISH
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Global atmospheric depth
+   --------------------------------------------------------- */
+
+body {
+  position: relative;
+
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 10% 15%,
+      rgba(59, 130, 246, 0.10),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 90% 45%,
+      rgba(250, 204, 21, 0.055),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 70% 60% at 45% 100%,
+      rgba(59, 130, 246, 0.065),
+      transparent 70%
+    ),
+    #050505;
+
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------
+   Fine grain / texture
+   --------------------------------------------------------- */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+
+  opacity: 0.035;
+
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.8'/%3E%3C/svg%3E");
+
+  mix-blend-mode: soft-light;
+}
+
+/* ---------------------------------------------------------
+   Technical section label
+   --------------------------------------------------------- */
+
+@utility section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: var(--accent);
+
+  &::before {
+    content: "";
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.9;
+  }
+}
+
+/* ---------------------------------------------------------
+   Atmospheric glow utility
+   --------------------------------------------------------- */
+
+@utility ambient-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+
+  filter: blur(100px);
+  opacity: 0;
+
+  transition: opacity 700ms ease;
+}
+
+/* ---------------------------------------------------------
+   Research / project surface
+   --------------------------------------------------------- */
+
+@utility research-surface {
+  background: rgba(255, 255, 255, 0.012);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  transition:
+    background-color 500ms ease,
+    border-color 500ms ease,
+    transform 500ms ease;
+}
+
+/* ---------------------------------------------------------
+   Section atmosphere
+   --------------------------------------------------------- */
+
+@utility section-atmosphere {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse 65% 70% at 85% 20%,
+      rgba(59, 130, 246, 0.055),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 55% 65% at 10% 85%,
+      rgba(250, 204, 21, 0.028),
+      transparent 70%
+    ),
+    #050505;
+}
+
+/* ---------------------------------------------------------
+   Subtle section transition
+   --------------------------------------------------------- */
+
+@utility section-glow {
+  position: relative;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+
+    height: 180px;
+
+    pointer-events: none;
+    z-index: -1;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.018),
+      transparent
+    );
+  }
+}
+

@@ -67,17 +67,6 @@ export default function Infrastructure() {
         <ScrollReveal>
           <div className="mb-10 sm:mb-12">
 
-            <div
-              className="
-                label-mono
-                mb-4
-                text-accent
-                sm:mb-5
-              "
-            >
-              Infrastructure
-            </div>
-
             <h2
               className="
                 max-w-3xl

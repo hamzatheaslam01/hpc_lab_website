@@ -7,33 +7,33 @@ export default function VantaGlobe() {
   const effectRef = useRef(null);
 
   useEffect(() => {
-    if (!effectRef.current) {
-      effectRef.current = GLOBE({
-        el: vantaRef.current,
-        THREE,
+    if (!vantaRef.current || effectRef.current) return;
 
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
+    effectRef.current = GLOBE({
+      el: vantaRef.current,
+      THREE,
 
-        minHeight: 200,
-        minWidth: 200,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
 
-        scale: 1,
-        scaleMobile: 1,
+      minHeight: 200,
+      minWidth: 200,
 
-        color: 0x3b82f6,
-color2: 0xfacc15,    // Light blue
-        backgroundColor: 0x000000,
+      scale: 1,
+      scaleMobile: 0.58,
 
-        size: 1.15,
+      color: 0x3b82f6,
+      color2: 0xfacc15,
+      backgroundColor: 0x000000,
 
-        points: 18,
-        spacing: 20,
+      size: 1.05,
 
-        showDots: true,
-      });
-    }
+      points: 16,
+      spacing: 22,
+
+      showDots: true,
+    });
 
     return () => {
       effectRef.current?.destroy();
@@ -43,8 +43,18 @@ color2: 0xfacc15,    // Light blue
 
   return (
     <div
-    ref={vantaRef}
-    className="absolute inset-0 z-0 overflow-hidden"
+      ref={vantaRef}
+      className="
+        absolute
+        left-0
+        right-0
+        top-10
+        z-0
+        h-[350px]
+
+        md:inset-0
+        md:h-auto
+      "
     />
   );
 }

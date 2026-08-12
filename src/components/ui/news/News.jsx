@@ -544,20 +544,6 @@ function NewsCard({
           "
         >
 
-          {/* Label */}
-
-          <p
-            className="
-              label-mono
-              text-[10px]
-              text-accent/70
-              sm:text-xs
-            "
-          >
-            HPC LAB / NEWS
-          </p>
-
-
           {/* Headline */}
 
           <h3

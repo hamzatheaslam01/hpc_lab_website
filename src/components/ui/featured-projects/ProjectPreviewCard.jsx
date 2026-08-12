@@ -1,14 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function ProjectPreviewCard({
   project,
   compact = false,
 }) {
-  const navigate = useNavigate();
+  const [expanded, setExpanded] = useState(false);
 
-  function handleReadMore() {
-    navigate(`/projects?id=${project.id}`);
-  }
+  const toggleExpanded = () => {
+    setExpanded((current) => !current);
+  };
 
   /*
    * =========================================================
@@ -23,7 +23,7 @@ export default function ProjectPreviewCard({
           group
           relative
           flex
-          h-[460px]
+          min-h-[460px]
           w-full
           flex-col
           overflow-hidden
@@ -31,16 +31,13 @@ export default function ProjectPreviewCard({
           border-white/[0.07]
           bg-[#080808]
           transition-all
-          duration-700
+          duration-500
           ease-[cubic-bezier(.2,.7,.2,1)]
           hover:-translate-y-1
           hover:border-white/[0.12]
         "
       >
-
-        {/* =================================================
-            IMAGE
-        ================================================= */}
+        {/* IMAGE */}
 
         <div
           className="
@@ -72,8 +69,6 @@ export default function ProjectPreviewCard({
             <div className="absolute inset-0 bg-[#080808]" />
           )}
 
-          {/* Subtle image gradient */}
-
           <div
             className="
               pointer-events-none
@@ -87,15 +82,11 @@ export default function ProjectPreviewCard({
           />
         </div>
 
-
-        {/* =================================================
-            CONTENT
-        ================================================= */}
+        {/* CONTENT */}
 
         <div
           className="
             flex
-            min-h-0
             flex-1
             flex-col
             border-t
@@ -103,9 +94,6 @@ export default function ProjectPreviewCard({
             p-7
           "
         >
-
-          {/* Title */}
-
           <h3
             className="
               text-2xl
@@ -121,31 +109,37 @@ export default function ProjectPreviewCard({
             {project.title}
           </h3>
 
-
-          {/* Description */}
-
-          <p
-            className="
-              mt-4
-              line-clamp-2
-              text-sm
-              leading-6
-              text-white/40
-              transition-colors
+          <div
+            className={`
+              overflow-hidden
+              transition-all
               duration-500
-              group-hover:text-white/55
-            "
+              ease-[cubic-bezier(.2,.7,.2,1)]
+              ${
+                expanded
+                  ? "mt-4 max-h-[500px]"
+                  : "mt-4 max-h-[48px]"
+              }
+            `}
           >
-            {project.description}
-          </p>
-
-
-          {/* Read More */}
+            <p
+              className="
+                text-sm
+                leading-6
+                text-white/40
+                transition-colors
+                duration-500
+                group-hover:text-white/55
+              "
+            >
+              {project.description}
+            </p>
+          </div>
 
           <div className="mt-auto pt-6">
             <button
               type="button"
-              onClick={handleReadMore}
+              onClick={toggleExpanded}
               className="
                 inline-flex
                 border
@@ -160,21 +154,17 @@ export default function ProjectPreviewCard({
                 text-white/45
                 transition-all
                 duration-300
-                group-hover:border-accent/50
-                group-hover:bg-accent/[0.06]
-                group-hover:text-accent
+                hover:border-accent/50
+                hover:bg-accent/[0.06]
+                hover:text-accent
               "
             >
-              Read More
+              {expanded ? "Show Less" : "Read More"}
             </button>
           </div>
-
         </div>
 
-
-        {/* =================================================
-            GRADIENT BORDERS
-        ================================================= */}
+        {/* GRADIENT BORDERS */}
 
         <div
           className="
@@ -251,11 +241,9 @@ export default function ProjectPreviewCard({
             group-hover:h-full
           "
         />
-
       </article>
     );
   }
-
 
   /*
    * =========================================================
@@ -265,7 +253,7 @@ export default function ProjectPreviewCard({
 
   return (
     <article
-      className="
+      className={`
         group
         relative
         w-full
@@ -274,18 +262,16 @@ export default function ProjectPreviewCard({
         border-white/[0.07]
         bg-[#080808]
         transition-all
-        duration-700
+        duration-500
         ease-[cubic-bezier(.2,.7,.2,1)]
         hover:-translate-y-1
         hover:border-white/[0.12]
-      "
+        ${expanded ? "md:min-h-[380px]" : ""}
+      `}
     >
-
       <div className="flex flex-col md:flex-row">
 
-        {/* =================================================
-            IMAGE
-        ================================================= */}
+        {/* IMAGE */}
 
         <div
           className="
@@ -332,10 +318,7 @@ export default function ProjectPreviewCard({
           />
         </div>
 
-
-        {/* =================================================
-            CONTENT
-        ================================================= */}
+        {/* CONTENT */}
 
         <div
           className="
@@ -351,9 +334,6 @@ export default function ProjectPreviewCard({
             md:p-10
           "
         >
-
-          {/* Title */}
-
           <h3
             className="
               text-2xl
@@ -370,34 +350,44 @@ export default function ProjectPreviewCard({
             {project.title}
           </h3>
 
+          {/* DESCRIPTION */}
 
-          {/* Description */}
-
-          <p
-            className="
-              mt-5
-              line-clamp-2
-              max-w-3xl
-              text-sm
-              leading-6
-              text-white/40
-              transition-colors
+          <div
+            className={`
+              overflow-hidden
+              transition-all
               duration-500
-              group-hover:text-white/55
-              sm:text-base
-              sm:leading-7
-            "
+              ease-[cubic-bezier(.2,.7,.2,1)]
+              ${
+                expanded
+                  ? "mt-5 max-h-[600px]"
+                  : "mt-5 max-h-[56px]"
+              }
+            `}
           >
-            {project.description}
-          </p>
+            <p
+              className="
+                max-w-3xl
+                text-sm
+                leading-6
+                text-white/40
+                transition-colors
+                duration-500
+                group-hover:text-white/55
+                sm:text-base
+                sm:leading-7
+              "
+            >
+              {project.description}
+            </p>
+          </div>
 
-
-          {/* Read More */}
+          {/* READ MORE */}
 
           <div className="mt-6">
             <button
               type="button"
-              onClick={handleReadMore}
+              onClick={toggleExpanded}
               className="
                 inline-flex
                 border
@@ -412,23 +402,18 @@ export default function ProjectPreviewCard({
                 text-white/45
                 transition-all
                 duration-300
-                group-hover:border-accent/50
-                group-hover:bg-accent/[0.06]
-                group-hover:text-accent
+                hover:border-accent/50
+                hover:bg-accent/[0.06]
+                hover:text-accent
               "
             >
-              Read More
+              {expanded ? "Show Less" : "Read More"}
             </button>
           </div>
-
         </div>
-
       </div>
 
-
-      {/* =====================================================
-          GRADIENT BORDERS
-      ===================================================== */}
+      {/* GRADIENT BORDERS */}
 
       <div
         className="
@@ -505,7 +490,6 @@ export default function ProjectPreviewCard({
           group-hover:h-full
         "
       />
-
     </article>
   );
 }
